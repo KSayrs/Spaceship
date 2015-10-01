@@ -12,28 +12,30 @@
             var ship_entity = Crafty.e('2D, DOM, ship, Twoway, Keyboard')
                     .attr({x: 500, y: 425})
                     .twoway(5)
-                    .bind("keyDown", function(e) {
+                    .bind("KeyDown", function(e) {
                         if(e.key == Crafty.keys.SPACE){
-                            var lazer_entity = Crafty.e('2D, DOM, lazer')
-                                    .attr({x: 500, y: 400});
-                            Crafty.e('Floor, 2D, DOM, Color')
-                             .attr({x: 0, y: 250, w: 500, h: 25})
-                             .color('green');
+                            //Creates bullet
+                            Crafty.e("2D, DOM, Color, bullet")
+                                    .attr({
+                                        x: this._x+25,
+                                        y: this._y,
+                                        w: 2,
+                                        h: 5,
+                                        //rotation: this._rotation,
+                                        yspeed: 5
+                                    })
+                                    .color("rgb(0, 0, 255)")
+                                    .bind("EnterFrame",
+                                        function() {
+                                            this.y -= this.yspeed;
+
+                                            //destroy if it goes out of bounds
+                                            if(this._x > Crafty.viewport.width || this._x < 0 || this._y > Crafty.viewport.height || this._y < 0) {
+                                                this.destroy();
+                                            }
+                                        });
                         }
                     });
-            /*Crafty.e('2D, Canvas, Color, Fourway, Gravity')
-                    .attr({x: 0, y: 0, w: 50, h: 50})
-                    .color('#000')
-                    .fourway(4)
-                    .gravity('Floor');*/
-            /*Crafty.e('Floor, 2D, Canvas, Color')
-                    .attr({x: 0, y: 250, w: 500, h: 25})
-                    .color('green');*/
-            function create_lazer(ship_parent){
-                Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
-                var lazer_entity = Crafty.e('2D, DOM, lazer')
-                        .attr({x: 500, y: 400});
-            }
         </script>
     </div>
     </body>
