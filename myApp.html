@@ -14,10 +14,9 @@
             //bullet class
             Crafty.c("Bullet", {
                 init: function() {
-                    this.addComponent("2d, Color, DOM")
+                    this.addComponent("2D, Color, DOM")
                             .attr({w: 2, h: 5, yspeed: 5})
                             .color("rgb(0, 0, 255)")
-                           // .origin("center")
                             .bind("EnterFrame",function(){
                                 this.y -= this.yspeed;
                             //destroys bullet when it leaves the frame
@@ -31,35 +30,30 @@
                 }
             });
 
+            Crafty.c("EnemyWeapon", {
+               init: function() {
+                   this.addComponent("Bullet")
+                           .attr({yspeed: -3})
+                             .origin("center")
+                           .bind("EnterFrame", function() {
+                               this.y -= this.yspeed;
+                           })
+               }
+            });
+
             //player ship
             var ship_entity = Crafty.e('2D, DOM, ship, Twoway, Keyboard')
                     .attr({x: 500, y: 425})
                     .twoway(5)
                     .bind("KeyDown", function(e) {
+                       // var currentframe = Crafty.frame();
                         if(e.key == Crafty.keys.SPACE){
                             //Creates bullet
                             //var bullet1 = Crafty("Bullet");
-                            Crafty.e("2D, Color, DOM, Bullet")
-                                    .attr({x: this._x+25, y: this._y, w: 2, h: 5});
-                            /*Crafty.e("2D, DOM, Color, bullet")
-                                    .attr({
-                                        x: this._x+25,
-                                        y: this._y,
-                                        w: 2,
-                                        h: 5,
-                                        yspeed: 5
-                                    })
-                                    .color("rgb(0, 0, 255)")
-                                    .bind("EnterFrame",
-                                        function() {
-                                            this.y -= this.yspeed;
 
-                                            //destroy if it goes out of bounds
-                                            if(this._x > Crafty.viewport.width || this._x < 0 || this._y > Crafty.viewport.height || this._y < 0) {
-                                                this.destroy();
-                                            }
-                                        });*/
-                        }
+                                Crafty.e("2D, Color, DOM, Bullet")
+                                    .attr({x: this._x+25, y: this._y, w: 2, h: 5});
+                            }
                     });
             //blue enemy ship
             var blue_enem_entity = Crafty.e('2D, DOM, blue_enem')
@@ -72,7 +66,11 @@
                         if(this.x > ship_entity.x)
                             this.x -= 2;
 
-                        //if(this.x == player.x)
+                        if(this.x == ship_entity.x){
+                            Crafty.e("2D, Color, DOM, EnemyWeapon")
+                                    .attr({x: this._x+25, y: this._y+50, w:2, h:5})
+                                    .color("rgb(255, 255, 0)");
+                        }
                         //    attacking = true;
 
                         //if(attacking)
