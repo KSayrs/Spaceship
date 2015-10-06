@@ -14,17 +14,19 @@
             //bullet class
             Crafty.c("Bullet", {
                 init: function() {
-                    this.requires("2d, Color, DOM")
-                            .attr({w: 2, h: 5})
+                    this.addComponent("2d, Color, DOM")
+                            .attr({w: 2, h: 5, yspeed: 5})
                             .color("rgb(0, 0, 255)")
-                            .origin("center")
-                            .bind("EnterFrame",function(){ //destroys bullet when it leaves the frame
-                            if(this.x > Crafty.viewport.width+this.w ||
-                                this.x < -this.w ||
-                                this.y < -this.h ||
-                                this.y > Crafty.viewport.height+this.h){
-                                this.destroy();
-                            }
+                           // .origin("center")
+                            .bind("EnterFrame",function(){
+                                this.y -= this.yspeed;
+                            //destroys bullet when it leaves the frame
+                                if(this.x > Crafty.viewport.width+this.w ||
+                                    this.x < -this.w ||
+                                    this.y < -this.h ||
+                                    this.y > Crafty.viewport.height+this.h){
+                                    this.destroy();
+                                }
                      })
                 }
             });
@@ -36,7 +38,10 @@
                     .bind("KeyDown", function(e) {
                         if(e.key == Crafty.keys.SPACE){
                             //Creates bullet
-                            Crafty.e("2D, DOM, Color, bullet")
+                            //var bullet1 = Crafty("Bullet");
+                            Crafty.e("2D, Color, DOM, Bullet")
+                                    .attr({x: this._x+25, y: this._y, w: 2, h: 5});
+                            /*Crafty.e("2D, DOM, Color, bullet")
                                     .attr({
                                         x: this._x+25,
                                         y: this._y,
@@ -53,7 +58,7 @@
                                             if(this._x > Crafty.viewport.width || this._x < 0 || this._y > Crafty.viewport.height || this._y < 0) {
                                                 this.destroy();
                                             }
-                                        });
+                                        });*/
                         }
                     });
             //blue enemy ship
