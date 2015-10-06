@@ -5,10 +5,31 @@
         <script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
         <script>
             Crafty.init(1000,500, document.getElementById('game'));
-            Crafty.load(["SPACEBUDDY.png", "testlazer1.png"]);
+            Crafty.load(["SPACEBUDDY.png", "testlazer1.png", "ENEM4-3quarterflame.png"]);
             Crafty.background("#000000");
             Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
             Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
+            Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
+
+            //bullet class
+            Crafty.c("Bullet", {
+                init: function() {
+                    this.requires("2d, Color, DOM")
+                            .attr({w: 2, h: 5})
+                            .color("rgb(0, 0, 255)")
+                            .origin("center")
+                            .bind("EnterFrame",function(){ //destroys bullet when it leaves the frame
+                            if(this.x > Crafty.viewport.width+this.w ||
+                                this.x < -this.w ||
+                                this.y < -this.h ||
+                                this.y > Crafty.viewport.height+this.h){
+                                this.destroy();
+                            }
+                     })
+                }
+            });
+
+            //player ship
             var ship_entity = Crafty.e('2D, DOM, ship, Twoway, Keyboard')
                     .attr({x: 500, y: 425})
                     .twoway(5)
@@ -21,7 +42,6 @@
                                         y: this._y,
                                         w: 2,
                                         h: 5,
-                                        //rotation: this._rotation,
                                         yspeed: 5
                                     })
                                     .color("rgb(0, 0, 255)")
@@ -36,6 +56,26 @@
                                         });
                         }
                     });
+            //blue enemy ship
+            var blue_enem_entity = Crafty.e('2D, DOM, blue_enem')
+                    .attr({x: 250, y: 100})
+                    .bind("EnterFrame",function(){
+
+                        if(this.x < ship_entity.x)
+                            this.x += 2;
+
+                        if(this.x > ship_entity.x)
+                            this.x -= 2;
+
+                        //if(this.x == player.x)
+                        //    attacking = true;
+
+                        //if(attacking)
+                        //    this.y += 4;
+                    });
+                   // .tween({x: 750, y:100}, 5000);
+                    //.onHit("")*/
+
         </script>
     </div>
     </body>
