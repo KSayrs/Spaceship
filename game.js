@@ -100,6 +100,7 @@ $(document).ready(function() {
             })
            // .collision()
             .onHit("Bullet", function(){ this.destroy(); score.text("200"); });
+            Crafty.enterScene("Main");
         //.onHit("")*/
     });
 });
