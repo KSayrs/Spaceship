@@ -1,85 +1,13 @@
 <html>
-    <head></head>
-    <body>
-    <div id = "game">
+    <head>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
         <script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
-        <script>
-            Crafty.init(1000,500, document.getElementById('game'));
-            Crafty.load(["SPACEBUDDY.png", "testlazer1.png", "ENEM4-3quarterflame.png"]);
-            Crafty.background("#000000");
-            Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
-            Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
-            Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
-
-            //bullet class
-            Crafty.c("Bullet", {
-                init: function() {
-                    this.addComponent("2D, Color, DOM")
-                            .attr({w: 2, h: 5, yspeed: 5})
-                            .color("rgb(0, 0, 255)")
-                            .bind("EnterFrame",function(){
-                                this.y -= this.yspeed;
-                            //destroys bullet when it leaves the frame
-                                if(this.x > Crafty.viewport.width+this.w ||
-                                    this.x < -this.w ||
-                                    this.y < -this.h ||
-                                    this.y > Crafty.viewport.height+this.h){
-                                    this.destroy();
-                                }
-                     })
-                }
-            });
-
-            Crafty.c("EnemyWeapon", {
-               init: function() {
-                   this.addComponent("Bullet")
-                           .attr({yspeed: -3})
-                             .origin("center")
-                           .bind("EnterFrame", function() {
-                               this.y -= this.yspeed;
-                           })
-               }
-            });
-
-            //player ship
-            var ship_entity = Crafty.e('2D, DOM, ship, Twoway, Keyboard')
-                    .attr({x: 500, y: 425})
-                    .twoway(5)
-                    .bind("KeyDown", function(e) {
-                       // var currentframe = Crafty.frame();
-                        if(e.key == Crafty.keys.SPACE){
-                            //Creates bullet
-                            //var bullet1 = Crafty("Bullet");
-
-                                Crafty.e("2D, Color, DOM, Bullet")
-                                    .attr({x: this._x+25, y: this._y, w: 2, h: 5});
-                            }
-                    });
-            //blue enemy ship
-            var blue_enem_entity = Crafty.e('2D, DOM, blue_enem')
-                    .attr({x: 250, y: 100})
-                    .bind("EnterFrame",function(){
-
-                        if(this.x < ship_entity.x)
-                            this.x += 2;
-
-                        if(this.x > ship_entity.x)
-                            this.x -= 2;
-
-                        if(this.x == ship_entity.x){
-                            Crafty.e("2D, Color, DOM, EnemyWeapon")
-                                    .attr({x: this._x+25, y: this._y+50, w:2, h:5})
-                                    .color("rgb(255, 255, 0)");
-                        }
-                        //    attacking = true;
-
-                        //if(attacking)
-                        //    this.y += 4;
-                    });
-                   //.tween({x: 750, y:100}, 5000);
-                    //.onHit("")*/
-
-        </script>
-    </div>
+        <script type="text/javascript" src="game.js"></script>
+        <title>Space Shooter</title>
+        <style>
+            body, html { margin:0; padding: 0; overflow:hidden; font-family:Arial; font-size:20px }
+        </style>
+    </head>
+    <body>
     </body>
 </html>
