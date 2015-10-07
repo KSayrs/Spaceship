@@ -9,9 +9,10 @@ $(document).ready(function() {
     Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
 
-   // Crafty.scene("main");
+   Crafty.enterScene("Main");
 
    // Crafty.scene("main", function() {
+    Crafty.defineScene("Main", function(){
         Crafty.background("#000000");
         var frame = 0;
         var enframe = 0;
@@ -101,6 +102,7 @@ $(document).ready(function() {
             .onHit("Bullet", function(){ this.destroy(); score.text("200"); });
         //.onHit("")*/
     });
+});
 //});
 
 //preload the needed assets
