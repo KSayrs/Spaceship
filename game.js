@@ -9,7 +9,7 @@ $(document).ready(function() {
     Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
 
-    //this is what we call your basic start
+    //start
     Crafty.background("#000000");
     Crafty.e("2D, DOM, Mouse, Text")
         .text("Click to play")
@@ -20,7 +20,6 @@ $(document).ready(function() {
         .bind("Click", function () {
             Crafty.enterScene("main");
         });
-
 
     //Main game
     Crafty.scene("main", function() {
@@ -78,7 +77,6 @@ $(document).ready(function() {
                         .attr({x: this._x + 25, y: this._y, w: 2, h: 5});
                 }
             })
-            //.collision()
             .onHit("EnemyWeapon", function(){
                 Crafty.enterScene("GameOver");
             });
@@ -94,7 +92,7 @@ $(document).ready(function() {
                 if (this.x > ship_entity.x)
                     this.x -= 2;
 
-                if ((this.x == ship_entity.x) && ((Crafty.frame() - enframe) > 20)) {
+                if ((this.x == ship_entity.x || this.x == ship_entity.x+1 || this.x == ship_entity.x-1) && ((Crafty.frame() - enframe) > 20)) {
                     //for debugigng, delete later
                     console.log("Current Frame: " + Crafty.frame());
                     console.log("enframe: " + enframe);
@@ -107,11 +105,7 @@ $(document).ready(function() {
                         .color("rgb(255, 255, 0)");
                 }
                 //    attacking = true;
-
-                //if(attacking)
-                //    this.y += 4;
             })
-           // .collision()
             .onHit("Bullet", function(){
                 this.destroy();
                 score.text("200");
