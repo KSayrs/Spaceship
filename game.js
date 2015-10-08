@@ -9,9 +9,21 @@ $(document).ready(function() {
     Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
 
-    //Crafty.enterScene("Main");
+    //this is what we call your basic start
+    Crafty.background("#000000");
+    Crafty.e("2D, DOM, Mouse, Text")
+        .text("Click to play")
+        .attr({x: 370, y: Crafty.viewport.height/2-40, w: 400, h: 100})
+        //.color("blue")
+        .css({color: "#66FFFF"})
+        .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
+        .bind("Click", function () {
+            Crafty.enterScene("main");
+        });
 
-  //  Crafty.scene("main", function() {
+
+
+    Crafty.scene("main", function() {
   //  Crafty.defineScene("Main", function(){
         Crafty.background("#000000");
         var frame = 0;
@@ -23,7 +35,7 @@ $(document).ready(function() {
         .attr({x: Crafty.viewport.width - 100, y: Crafty.viewport.height - 450, w: 200, h:50})
         .css({color: "#fff"});
 
-        //bullet class was here
+        //bullet class here
         Crafty.c("Bullet", {
             init: function() {
                 this.addComponent("2D, Color, DOM")
@@ -47,7 +59,6 @@ $(document).ready(function() {
             init: function() {
                 this.addComponent("Bullet")
                     .attr({yspeed: -3})
-                    .origin("center")
             }
         });
 
@@ -69,8 +80,7 @@ $(document).ready(function() {
             })
             //.collision()
             .onHit("EnemyWeapon", function(){
-                score.text("Lose");
-               // Crafty.enterScene("Main");
+                Crafty.enterScene("GameOver");
             });
 
         //blue enemy ship
@@ -106,6 +116,22 @@ $(document).ready(function() {
                 this.destroy();
                 score.text("200");
             });
-   // });
+    });
+    Crafty.scene("GameOver", function () {
+        Crafty.background("#000000");
+        Crafty.e("2D, DOM, Text")
+            .text("Game Over")
+            .attr({x: 330, y: Crafty.viewport.height/2-60, w: 500, h: 200})
+            .css({color: "#fff"})
+            .textFont({ family: "Palatino Linotype" ,size: '60px', weight: 'bold' });
+        Crafty.e("2D, DOM, Mouse, Text")
+            .text("Click to play again")
+            .attr({x: 320, y: Crafty.viewport.height/2+40, w: 400, h: 100})
+            .css({color: "#66FFFF"})
+            .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
+            .bind("Click", function () {
+                Crafty.enterScene("main");
+            });
+    });
 });
 
