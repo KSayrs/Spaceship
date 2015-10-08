@@ -34,33 +34,6 @@ $(document).ready(function() {
         .attr({x: Crafty.viewport.width - 100, y: Crafty.viewport.height - 450, w: 200, h:50})
         .css({color: "#fff"});
 
-        //bullet class here
-        Crafty.c("Bullet", {
-            init: function() {
-                this.addComponent("2D, Color, DOM")
-                    .attr({w: 2, h: 5, yspeed: 5})
-                    .color("rgb(0, 0, 255)")
-                    .bind("EnterFrame",function(){
-                        this.y -= this.yspeed;
-                        //destroys bullet when it leaves the frame
-                        if(this.x > Crafty.viewport.width+this.w ||
-                            this.x < -this.w ||
-                            this.y < -this.h ||
-                            this.y > Crafty.viewport.height+this.h){
-                            this.destroy();
-                        }
-                    })
-            }
-        });
-
-    //enemy weapon class
-        Crafty.c("EnemyWeapon", {
-            init: function() {
-                this.addComponent("Bullet")
-                    .attr({yspeed: -3})
-            }
-        });
-
         //player ship
         var ship_entity = Crafty.e('2D, DOM, ship, Twoway, Keyboard, Collision')
             .attr({x: 500, y: 425})
