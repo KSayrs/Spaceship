@@ -9,9 +9,9 @@ $(document).ready(function() {
     Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
 
-   Crafty.enterScene("Main");
+    Crafty.enterScene("Main");
 
-   // Crafty.scene("main", function() {
+  //  Crafty.scene("main", function() {
     Crafty.defineScene("Main", function(){
         Crafty.background("#000000");
         var frame = 0;
@@ -68,7 +68,10 @@ $(document).ready(function() {
                 }
             })
             //.collision()
-            .onHit("EnemyWeapon", function(){ score.text("Lose") });
+            .onHit("EnemyWeapon", function(){
+                score.text("Lose")
+                Crafty.enterScene("Main");
+            });
 
         //blue enemy ship
         var blue_enem_entity = Crafty.e('2D, DOM, blue_enem, Collision')
@@ -99,11 +102,10 @@ $(document).ready(function() {
                 //    this.y += 4;
             })
            // .collision()
-            .onHit("Bullet", function(){ this.destroy(); score.text("200"); });
-            Crafty.enterScene("Main");
-        //.onHit("")*/
+            .onHit("Bullet", function(){
+                this.destroy();
+                score.text("200");
+            });
     });
 });
-//});
 
-//preload the needed assets
