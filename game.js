@@ -22,7 +22,7 @@ $(document).ready(function() {
         });
 
 
-
+    //Main game
     Crafty.scene("main", function() {
   //  Crafty.defineScene("Main", function(){
         Crafty.background("#000000");
@@ -117,6 +117,8 @@ $(document).ready(function() {
                 score.text("200");
             });
     });
+
+    //Game Over scene
     Crafty.scene("GameOver", function () {
         Crafty.background("#000000");
         Crafty.e("2D, DOM, Text")
