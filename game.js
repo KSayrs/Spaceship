@@ -95,7 +95,7 @@ $(document).ready(function() {
             .textFont({ family: "Palatino Linotype" ,size: '60px', weight: 'bold' });
         Crafty.e("2D, DOM, Mouse, Text")
             .text("Click to play again")
-            .attr({x: 320, y: Crafty.viewport.height/2+40, w: 400, h: 100})
+            .attr({x: 320, y: Crafty.viewport.height/2+40, w: 800, h: 100})
             .css({color: "#66FFFF"})
             .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
             .bind("Click", function () {
