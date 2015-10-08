@@ -3,18 +3,20 @@ $(document).ready(function() {
     //init Crafty with FPS of 50 and create the canvas element
     Crafty.init(1000, 500);
     Crafty.canvas.init();
-    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "Buttonunpressed.png", "Buttonpressed.png"]);
+    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "Buttonunpressed.png", "playagain.png"]);
 
     Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
-    Crafty.sprite("Buttonunpressed.png", {lazer:[0,0,300,100]});
+   // Crafty.sprite("Buttonunpressed.png", {lazer:[0,0,200,67]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
+
+    var scoren = 0;
 
     //start
     Crafty.background("#000000");
     Crafty.e("2D, DOM, Image, Mouse")
         .image("Buttonunpressed.png")
         //.text("Click to play")
-        .attr({x: Crafty.viewport._width/2-75, y: Crafty.viewport._height/2-25, w: 150, h: 50})
+        .attr({x: Crafty.viewport._width/2-100, y: Crafty.viewport._height/2-32, w: 200, h: 67})
         //.color("blue")
         //.css({color: "#000"})
        // .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
@@ -31,7 +33,7 @@ $(document).ready(function() {
 
     //score display
     var score = Crafty.e("2D, DOM, Text")
-        .text("Score: 0")
+        .text("Score: " + scoren)
         .attr({x: Crafty.viewport.width - 100, y: Crafty.viewport.height - 450, w: 200, h:50})
         .css({color: "#fff"});
 
@@ -82,7 +84,8 @@ $(document).ready(function() {
             })
             .onHit("Bullet", function(){
                 this.destroy();
-                score.text("200");
+                scoren = scoren +200;
+                score.text("Score: " + scoren);
             });
     });
 
@@ -94,14 +97,13 @@ $(document).ready(function() {
             .attr({x: 330, y: Crafty.viewport.height/2-60, w: 500, h: 200})
             .css({color: "#fff"})
             .textFont({ family: "Palatino Linotype" ,size: '60px', weight: 'bold' });
-        Crafty.e("2D, DOM, Mouse, Text")
-            .text("Click to play again")
-            .attr({x: 320, y: Crafty.viewport.height/2+40, w: 800, h: 100})
-            .css({color: "#66FFFF"})
-            .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
+        Crafty.e("2D, DOM, Image, Mouse")
+            .image("playagain.png")
+            .attr({x: Crafty.viewport._width/2-160, y: Crafty.viewport._height/2+50, w: 300, h: 100})
             .bind("Click", function () {
                 Crafty.enterScene("main");
             });
+
     });
 });
 
