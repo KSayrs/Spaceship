@@ -3,20 +3,21 @@ $(document).ready(function() {
     //init Crafty with FPS of 50 and create the canvas element
     Crafty.init(1000, 500);
     Crafty.canvas.init();
-    Crafty.load(["SPACEBUDDY.png", "testlazer1.png", "ENEM4-3quarterflame.png"]);
+    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "Buttonunpressed.png", "Buttonpressed.png"]);
 
     Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
-    Crafty.sprite("testlazer1.png", {lazer:[0,0,50,50]});
+    Crafty.sprite("Buttonunpressed.png", {lazer:[0,0,300,100]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
 
     //start
     Crafty.background("#000000");
-    Crafty.e("2D, DOM, Mouse, Text")
-        .text("Click to play")
-        .attr({x: 370, y: Crafty.viewport.height/2-40, w: 400, h: 100})
+    Crafty.e("2D, DOM, Image, Mouse")
+        .image("Buttonunpressed.png")
+        //.text("Click to play")
+        .attr({x: Crafty.viewport._width/2-75, y: Crafty.viewport._height/2-25, w: 150, h: 50})
         //.color("blue")
-        .css({color: "#66FFFF"})
-        .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
+        //.css({color: "#000"})
+       // .textFont({ family: "Palatino Linotype", size: '40px', weight: 'bold' })
         .bind("Click", function () {
             Crafty.enterScene("main");
         });
