@@ -9,8 +9,6 @@ $(document).ready(function() {
    // Crafty.sprite("Buttonunpressed.png", {lazer:[0,0,200,67]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
 
-    var scoren = 0;
-
     //start
     Crafty.background("#000000");
     Crafty.e("2D, DOM, Image, Mouse")
@@ -26,6 +24,7 @@ $(document).ready(function() {
 
     //Main game
     Crafty.scene("main", function() {
+        var scoren = 0;
   //  Crafty.defineScene("Main", function(){
         Crafty.background("#000000");
         var frame = 0;
@@ -84,8 +83,25 @@ $(document).ready(function() {
             })
             .onHit("Bullet", function(){
                 this.destroy();
-                scoren = scoren +200;
+                scoren = scoren + 200;
                 score.text("Score: " + scoren);
+                Crafty.scene("Win");
+            });
+    });
+
+    //Win! Scene
+    Crafty.scene("Win", function() {
+        Crafty.background("#000");
+        Crafty.e("2D, DOM, Text")
+            .text("You Win!")
+            .attr({x: 360, y: Crafty.viewport.height/2-60, w: 500, h: 200})
+            .css({color: "#fff"})
+            .textFont({ family: "Palatino Linotype" ,size: '60px', weight: 'bold' });
+        Crafty.e("2D, DOM, Image, Mouse")
+            .image("playagain.png")
+            .attr({x: Crafty.viewport._width/2-160, y: Crafty.viewport._height/2+50, w: 300, h: 100})
+            .bind("Click", function () {
+                Crafty.enterScene("main");
             });
     });
 
