@@ -3,11 +3,13 @@ $(document).ready(function() {
     //init Crafty with FPS of 50 and create the canvas element
     Crafty.init(1000, 500);
     Crafty.canvas.init();
-    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "Buttonunpressed.png", "playagain.png"]);
+    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "Buttonunpressed.png", "playagain.png", "ENEM3Pflip.png", "ENEM2G.png"]);
 
     Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
    // Crafty.sprite("Buttonunpressed.png", {lazer:[0,0,200,67]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
+    Crafty.sprite("ENEM3Pflip.png", {purple:[0,0,50,50]});
+    Crafty.sprite("ENEM2G.png", {green:[0,0,50,50]});
     //start
     Crafty.background("#000000");
     Crafty.e("2D, DOM, Image, Mouse")
@@ -26,13 +28,13 @@ $(document).ready(function() {
         scoren = 0; //sets score to 0 when entering scene
 
         //make the player
-        var ship_entity = Crafty.e('Player');
-
+        var theship = Crafty.e('Player');
         //make purple enemy
-        var purple_emen_entity = Crafty.e('2D, DOM, blue_enem, Purple_Enemy');
-
+        var purple_emen_entity = Crafty.e('purple, Purple_Enemy');
         //make blue enemy ship
-        var blue_enem_entity = Crafty.e('2D, DOM, blue_enem, Blue_Enemy');
+        var blue_enem_entity = Crafty.e('blue_enem, Blue_Enemy');
+        //green enemy
+        var green_enem_entity = Crafty.e('green, Green_Enemy');
     });
 
     //Win! Scene

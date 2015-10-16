@@ -5,7 +5,7 @@
 //bullet class
 Crafty.c("Bullet", {
     init: function() {
-        this.addComponent("2D, Color, DOM")
+        this.addComponent("2D, Color, DOM", "Collision")
             .attr({w: 2, h: 5, yspeed: 5})
             .color("rgb(0, 0, 255)")
             .bind("EnterFrame",function(){
@@ -18,13 +18,19 @@ Crafty.c("Bullet", {
                     this.destroy();
                 }
             })
+            .onHit("Enemy",function(){
+               // this.destroy();
+            });
     }
 });
 //enemy weapon class
 Crafty.c("EnemyWeapon", {
     init: function() {
-        this.addComponent("Bullet")
+        this.addComponent("Bullet", "Collision")
             .attr({yspeed: -3})
             .origin("center")
+            .onHit("Player",function(){
+             //   this.destroy();
+            });
     }
 });

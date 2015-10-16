@@ -22,4 +22,3 @@ Crafty.c("Player", {
             });
     }
 });
-
