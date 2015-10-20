@@ -3,7 +3,7 @@
  */
 var frame = 0;
 
-//successful working player class
+//player class
 Crafty.c("Player", {
     init: function() {
         this.addComponent("2D, DOM, ship, Twoway, Keyboard, Collision")
@@ -13,8 +13,10 @@ Crafty.c("Player", {
                 if ((e.key == Crafty.keys.SPACE) && ((Crafty.frame() - frame) > 25)) {
                     frame = Crafty.frame();
                     //Creates bullet
-                    Crafty.e("2D, Color, DOM, Bullet")
-                        .attr({x: this._x + 25, y: this._y, w: 2, h: 5});
+                    Crafty.e("2D, Color, DOM, Bullet, Image")
+                        .attr({x: this._x + 25, y: this._y, w: 2, h: 5})
+                        .image("testlazer3.png");
+                    Crafty.audio.play("lazer_sound", 1,0.5);
                 }
             })
             .onHit("EnemyWeapon", function(){

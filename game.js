@@ -3,13 +3,21 @@ $(document).ready(function() {
     //init Crafty with FPS of 50 and create the canvas element
     Crafty.init(1000, 500);
     Crafty.canvas.init();
-    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "Buttonunpressed.png", "playagain.png", "ENEM3Pflip.png", "ENEM2G.png"]);
+
+    /*var assets = {
+        "audio": {
+            "lazer_sound": ["lazer_sound.wav"]
+        }
+    };*/
+
+    Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "ENEM4LAZORv3.png", "playagain.png", "ENEM3Pflip.png", "ENEM2G.png", "lazer_sound.wav", "testlazer3.png"]);
 
     Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
-   // Crafty.sprite("Buttonunpressed.png", {lazer:[0,0,200,67]});
     Crafty.sprite("ENEM4-3quarterflame.png", {blue_enem:[0,0,50,50]});
     Crafty.sprite("ENEM3Pflip.png", {purple:[0,0,50,50]});
     Crafty.sprite("ENEM2G.png", {green:[0,0,50,50]});
+    Crafty.audio.add("lazer_sound", "lazer_sound.wav");
+
     //start
     Crafty.background("#000000");
     Crafty.e("2D, DOM, Image, Mouse")

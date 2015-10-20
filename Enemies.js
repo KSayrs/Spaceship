@@ -19,7 +19,8 @@ Crafty.c("Enemy", {
             color: "red",
             speed: 0,
             pointV: 0,
-            guns: 0
+            guns: 0,
+            image: ""
         };
 
         this.addComponent("2D, DOM, Collision")
@@ -31,7 +32,7 @@ Crafty.c("Enemy", {
                 if (this.x > ship_entity.x)
                     this.x -= this.make.speed;
                 //if line up, attack
-                if ((this.x <= ship_entity.x + 2 && this.x >= ship_entity.x - 2) && ((Crafty.frame() - enframe) > 20)) {
+                if ((this.x <= ship_entity.x + 10 && this.x >= ship_entity.x - 10) && ((Crafty.frame() - enframe) > 20)) {
                     enframe = Crafty.frame();
                     if(this.make.guns === 2){
                         Crafty.e("2D, Color, DOM, EnemyWeapon")
@@ -43,9 +44,17 @@ Crafty.c("Enemy", {
                     }
                     //enem bullet
                     else {
-                        Crafty.e("2D, Color, DOM, EnemyWeapon")
-                            .attr({x: this._x + 25, y: this._y + 50, w: 2, h: 5})
-                            .color(this.make.color);
+                        if (this.make.image !== "") {
+                            Crafty.e("2D, Color, DOM, EnemyWeapon, Image")
+                                .attr({x: this._x + 25 - 10, y: this._y + 50})
+                                .image(this.make.image)
+                                .color("#000000", 0);
+                        }
+                        else {
+                            Crafty.e("2D, Color, DOM, EnemyWeapon")
+                                .attr({x: this._x + 25, y: this._y + 50, w: 2, h: 5})
+                                .color(this.make.color);
+                        }
                     }
                 }
             })
@@ -60,6 +69,13 @@ Crafty.c("Enemy", {
                 }
             });
     },
+
+    //set bullet image
+    setImage: function(inmage){
+        this.make.image = inmage;
+        return this;
+    },
+
     //set number of guns
     setGuns: function(inguns){
         this.make.guns = inguns;
@@ -110,17 +126,19 @@ Crafty.c("Blue_Enemy", {
         this.requires("Enemy")
             .setSpeed(2)
             .pointValue(100)
-            .place(250, 100)
-            .setBullet("rgb(255, 255, 0)");
+            .place(250, 50)
+            .setBullet("rgb(255, 255, 0)")
+            .setImage("ENEM4LAZORv3.png");
     }
 });
 
+//green enemy
 Crafty.c("Green_Enemy", {
     init: function() {
         this.requires("Enemy")
             .setSpeed(1)
             .pointValue(300)
-            .place(400, 100)
+            .place(400, 150)
             .setBullet("rgb(0, 255, 0)")
             .setGuns(2);
     }
