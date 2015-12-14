@@ -1,37 +1,38 @@
 /**
  * Created by Katyana on 10/13/2015.
  */
-//Enemies of different types
+// Enemies of different types, and score handling
 var enframe = 0;
 var scoren = 0;
 var count = 0;
 var speed = 0;
 
-//generic enemy
+// generic enemy startpoint
 Crafty.c("Enemy", {
     init: function() {
         count++;
-        var ship_entity = Crafty("Player");
+        var ship_entity = Crafty("Player"); // the thing to attack
 
         // A separate object is necessary because objects and arrays are pass-by-reference.
         // See http://craftyjs.com/documentation/components.html for more
         this.make = {
-            color: "red",
-            speed: 0,
-            pointV: 0,
-            guns: 0,
+            color: "red", // bullet color
+            speed: 0,     // movement speed
+            pointV: 0,    // point worth
+            guns: 0,      // # of guns
             image: ""
         };
 
         this.addComponent("2D, DOM, Collision")
-            .attr({x: 250, y: 100}) //default location
+            .attr({x: 250, y: 100}) // default location
             .bind("EnterFrame", function () {
-                //speed passed in when created
+                // speed passed in when created
                 if (this.x < ship_entity.x)
                     this.x += this.make.speed;
                 if (this.x > ship_entity.x)
                     this.x -= this.make.speed;
-                //if line up, attack
+                // if line up, attack
+                // the additional integers are so that it doesn't have to be lined up on the exact pixel center to attack
                 if ((this.x <= ship_entity.x + 10 && this.x >= ship_entity.x - 10) && ((Crafty.frame() - enframe) > 20)) {
                     enframe = Crafty.frame();
                     if(this.make.guns === 2){
@@ -42,7 +43,7 @@ Crafty.c("Enemy", {
                             .attr({x: this._x + 44, y: this._y + 50, w: 2, h: 7})
                             .color(this.make.color);
                     }
-                    //enem bullet
+                    // enem bullet
                     else {
                         if (this.make.image !== "") {
                             Crafty.e("2D, Color, DOM, EnemyWeapon, Image")
@@ -88,7 +89,7 @@ Crafty.c("Enemy", {
         return this;
     },
 
-    //This sets the x an y for the thing
+    //This sets the x an y location
     place: function(x, y) {
         this.x = x;
         this.y = y;

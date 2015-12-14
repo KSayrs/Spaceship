@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-    //init Crafty with FPS of 50 and create the canvas element
+    // init Crafty with FPS of 50 and create the canvas element
     Crafty.init(1000, 500);
     Crafty.canvas.init();
 
@@ -10,6 +10,7 @@ $(document).ready(function() {
         }
     };*/
 
+    //one day these will all be spritesheets
     Crafty.load(["SPACEBUDDY.png", "ENEM4-3quarterflame.png", "ENEM4LAZORv3.png", "playagain.png", "ENEM3Pflip.png", "ENEM2G.png", "lazer_sound.wav", "testlazer3.png"]);
 
     Crafty.sprite("SPACEBUDDY.png", {ship:[0,0,50,50]});
@@ -78,4 +79,3 @@ $(document).ready(function() {
 
     });
 });
-
